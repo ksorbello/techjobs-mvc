@@ -4,7 +4,9 @@ import org.launchcode.models.JobData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.util.Map.Entry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +22,31 @@ public class SearchController {
     public String search(Model model) {
         model.addAttribute("columns", ListController.columnChoices);
         return "search";
+    }
+
+    @RequestMapping(value = "results")
+    public String search(Model model, @RequestParam String searchType, String searchTerm){
+        ArrayList<HashMap<String, String>> searchResults = new ArrayList<>();
+
+
+        if( searchType.equals("all")){
+            searchResults = JobData.findByValue(searchTerm);
+            model.addAttribute("columns", ListController.columnChoices);
+            model.addAttribute("searchResults", searchResults);
+
+        }else{
+            searchResults = JobData.findByColumnAndValue(searchType, searchTerm);
+            model.addAttribute("columns", ListController.columnChoices);
+            model.addAttribute("searchResults", searchResults);
+
+
+        }
+        return "search";
+
+
+
+
+
     }
 
     // TODO #1 - Create handler to process search request and display results
