@@ -12,7 +12,10 @@
     <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
 
     <!-- TODO #3 - Use the same list display from search.html -->
+    <h3 th:text="${searchResults.size()} + ' Result(s)'" ></h3>
+
     <div th:replace="fragments :: job-display"></div>
+
 
 
 </div>

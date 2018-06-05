@@ -40,7 +40,11 @@
 
 </div>
 
-<div th:if="${searchResults} and ${searchResults.size()}" >
+
+<h3 th:if="${searchResults}" th:text="${searchResults.size()} + ' Result(s)'" ></h3>
+
+<div th:if="${searchResults} and ${searchResults.size()}">
+
     <div th:replace="fragments :: job-display"></div>
 
 
